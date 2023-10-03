@@ -30,14 +30,14 @@ class _Pending_ApplicationState extends State<Pending_Application>
 
   @override
   void initState() {
-    id = GetStorage().read("id");
-    useremail = GetStorage().read("useremail");
-    firstname = GetStorage().read("firstname");
-    email = GetStorage().read("email");
-    mobilenumber = GetStorage().read("mobilenumber");
-    roleid = GetStorage().read("roleid");
-    tokenId = GetStorage().read("tokenId");
-    status = GetStorage().read("status");
+    id = GetStorage().read("user_id").toString();
+    useremail = GetStorage().read("user_email").toString();
+    firstname = GetStorage().read("first_name").toString();
+    email = GetStorage().read("email_id").toString();
+    mobilenumber = GetStorage().read("mobile_no").toString();
+    roleid = GetStorage().read("role_id").toString();
+    tokenId = GetStorage().read("tokenId").toString();
+    status = GetStorage().read("user_status").toString();
 
     print("user_email " + useremail.toString());
     print("id " + id.toString());
@@ -492,14 +492,14 @@ class _PendingListState extends State<PendingList> {
 
   @override
   void initState() {
-    id = GetStorage().read("id");
-    useremail = GetStorage().read("useremail");
-    firstname = GetStorage().read("firstname");
-    email = GetStorage().read("email");
-    mobilenumber = GetStorage().read("mobilenumber");
-    roleid = GetStorage().read("roleid");
-    tokenId = GetStorage().read("tokenId");
-    status = GetStorage().read("status");
+    id = GetStorage().read("user_id").toString();
+    useremail = GetStorage().read("user_email").toString();
+    firstname = GetStorage().read("first_name").toString();
+    email = GetStorage().read("email_id").toString();
+    mobilenumber = GetStorage().read("mobile_no").toString();
+    roleid = GetStorage().read("role_id").toString();
+    tokenId = GetStorage().read("tokenId").toString();
+    status = GetStorage().read("user_status").toString();
     PeningAppListApi();
     print("user_email " + useremail.toString());
     print("id " + id.toString());
@@ -522,25 +522,23 @@ class _PendingListState extends State<PendingList> {
         ? Align(
             alignment: Alignment.center,
             child: SizedBox(
-                height: 30,
-                width: 30,
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                  color: ColorName.buttoncolor,
-                  backgroundColor: ColorName.logoOrangecolor,
-                )))
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(strokeWidth: 3,color: ColorName.logoOrangecolor,backgroundColor: ColorName.buttoncolor,)))
         : Padding(
             padding: const EdgeInsets.all(15.0),
             child: ReorderableListView.builder(
-              itemCount: data.length,
-              onReorder: (int oldIndex, int newIndex) {},
+              itemCount: peningAppList.length,
+              onReorder: (int oldIndex, int newIndex) {
+
+              },
               itemBuilder: (BuildContext context, int index) {
                 return Dismissible(
-                  key: Key('$index${data[index]}'),
+                  key: Key('$index${peningAppList[index]}'),
                   direction: DismissDirection.startToEnd,
                   movementDuration: Duration(seconds: 1),
                   onDismissed: (direction) {
-                    _removeItem(index);
+                    // _removeItem(index);
                   },
                   background: Container(
                     color: Colors.red,
@@ -612,7 +610,7 @@ class _PendingListState extends State<PendingList> {
                                       height: 3,
                                     ),
                                     Text(
-                                      "Desai Rajesh Ramsurat",
+                                      peningAppList[index]['strContactName'].toString(),
                                       style: TextStyle(color: ColorName.black),
                                     ),
                                   ],
@@ -645,7 +643,7 @@ class _PendingListState extends State<PendingList> {
                                             height: 3,
                                           ),
                                           Text(
-                                            "XYZ",
+                                            peningAppList[index]['strProduct'].toString(),
                                             style: TextStyle(
                                                 color: ColorName.black),
                                           ),
@@ -666,7 +664,7 @@ class _PendingListState extends State<PendingList> {
                                             height: 3,
                                           ),
                                           Text(
-                                            "12,000",
+                                            peningAppList[index]['iAmount'].toString(),
                                             style: TextStyle(
                                                 color: ColorName.black),
                                           ),
@@ -704,7 +702,7 @@ class _PendingListState extends State<PendingList> {
                                               height: 3,
                                             ),
                                             Text(
-                                              "RACC-KGC2240449-88712650",
+                                              peningAppList[index]['ApplicationId'].toString(),
                                               style: TextStyle(
                                                   color: ColorName.black),
                                             ),
@@ -725,7 +723,7 @@ class _PendingListState extends State<PendingList> {
                                               height: 3,
                                             ),
                                             Text(
-                                              "GEA2HD12",
+                                              peningAppList[index]['strProposalNo'].toString(),
                                               style: TextStyle(
                                                   color: ColorName.black),
                                             ),
@@ -762,7 +760,7 @@ class _PendingListState extends State<PendingList> {
                                               height: 3,
                                             ),
                                             Text(
-                                              "Regular",
+                                              peningAppList[index]['Scheme'].toString(),
                                               style: TextStyle(
                                                   color: ColorName.black),
                                             ),
@@ -783,7 +781,7 @@ class _PendingListState extends State<PendingList> {
                                               height: 3,
                                             ),
                                             Text(
-                                              "ABC",
+                                              peningAppList[index]['strTenure'].toString(),
                                               style: TextStyle(
                                                   color: ColorName.black),
                                             ),
@@ -807,14 +805,14 @@ class _PendingListState extends State<PendingList> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Residental Address Line1",
+                                      "Residental Address",
                                       style: TextStyle(color: ColorName.gray3),
                                     ),
                                     SizedBox(
                                       height: 3,
                                     ),
                                     Text(
-                                      "XXXXXXXXXXXXXXX",
+                                      peningAppList[index]['strResidentialAddress'].toString(),
                                       style: TextStyle(color: ColorName.black),
                                     ),
                                   ],
@@ -835,7 +833,7 @@ class _PendingListState extends State<PendingList> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Residental Address Line2",
+                                            "Address",
                                             style: TextStyle(
                                                 color: ColorName.gray3),
                                           ),
@@ -843,7 +841,7 @@ class _PendingListState extends State<PendingList> {
                                             height: 3,
                                           ),
                                           Text(
-                                            "XXXXXXXXXXXXXXX",
+                                            peningAppList[index]['strAddress'].toString(),
                                             style: TextStyle(
                                                 color: ColorName.black),
                                           ),
@@ -865,7 +863,7 @@ class _PendingListState extends State<PendingList> {
                                             height: 3,
                                           ),
                                           Text(
-                                            "Bopal",
+                                            peningAppList[index]['strLandmark'].toString(),
                                             style: TextStyle(
                                                 color: ColorName.black),
                                           ),
@@ -904,7 +902,9 @@ class _PendingListState extends State<PendingList> {
     Map<String, Object> jsonparam = Map();
 
     setState(() {
-      jsonparam = {};
+      jsonparam = {
+        "email": email,
+      };
     });
 
     print(jsonparam);
@@ -913,8 +913,8 @@ class _PendingListState extends State<PendingList> {
           setState(() {
             print("Pening List Responce : " + value.toString());
             pendingAppListRes = value;
-            if (pendingAppListRes.toString() != "[]") {
-              peningAppList = pendingAppListRes;
+            if (pendingAppListRes['status'] == "success") {
+              peningAppList = pendingAppListRes['List'];
               isLoader = true;
             } else {
               isLoader = true;

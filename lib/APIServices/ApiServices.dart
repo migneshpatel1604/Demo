@@ -28,9 +28,9 @@ class ApiService {
     final JsonParam = jsonEncode(jsonparam);
     var Dataresponse;
     try {
-      print(baseurl + "");
+      print(baseurl + "pendinglist");
       http.Response response = await http.post(
-          Uri.parse(baseurl + ""),body: JsonParam,
+          Uri.parse(baseurl + "pendinglist"),body: JsonParam,
           headers:{"Content-Type": "application/json",
             'Authorization': 'Bearer $token',
           } );
@@ -49,9 +49,9 @@ class ApiService {
     final JsonParam = jsonEncode(jsonparam);
     var Dataresponse;
     try {
-      print(baseurl + "");
+      print(baseurl + "dashboard");
       http.Response response = await http.post(
-          Uri.parse(baseurl + ""),body: JsonParam,
+          Uri.parse(baseurl + "dashboard"),body: JsonParam,
           headers:{"Content-Type": "application/json",
             'Authorization': 'Bearer $token',
           } );

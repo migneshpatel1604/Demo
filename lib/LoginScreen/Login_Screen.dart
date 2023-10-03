@@ -131,7 +131,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                           TextFormField(
                             controller: passwordController,
                             obscureText: passwordVisible,
-                            cursorColor: ColorName.buttoncolor,
+                            cursorColor: Colors.blue,
                             // cursorRadius: Radius.circular(20),
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,

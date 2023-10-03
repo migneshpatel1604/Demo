@@ -1574,7 +1574,7 @@ class _Customer_FormState extends State<Customer_Form> {
                             hint: Text("CPV Result",
                                 style: TextStyle(
                                     color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 16)),
                             value: selectCPVResult,
                             iconDisabledColor: Colors.black45,

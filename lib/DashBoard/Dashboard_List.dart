@@ -25,7 +25,10 @@ class _Dashboard_ListState extends State<Dashboard_List>
       mobilenumber,
       roleid,
       status,
-      tokenId;
+      tokenId,
+      pendingCount = "",
+      reassignCount = "",
+      submitCount = "";
   var dashboardListCountRes;
   bool isLoader = false;
 
@@ -41,6 +44,7 @@ class _Dashboard_ListState extends State<Dashboard_List>
     status = GetStorage().read("user_status").toString();
     dashboardListCountApi();
     print("user_email " + useremail.toString());
+    print("email " + email.toString());
     print("id " + id.toString());
     print("first_name " + firstname.toString());
     print("mobile_number " + mobilenumber.toString());
@@ -120,58 +124,40 @@ class _Dashboard_ListState extends State<Dashboard_List>
         iconTheme: IconThemeData(color: ColorName.black, size: 30),
       ),
       drawer: DrawerScreen(),
-
       body: isLoader == false
           ? Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-
-              height: 50,
-              width: 50,
-              child: CircularProgressIndicator(strokeWidth: 3,color: ColorName.logoOrangecolor,backgroundColor: ColorName.buttoncolor,))) : Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 18.0),
-          child: Column(
-            children: [
-              Card(
-                color: ColorName.white,
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(10.0),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Pending_Application()));
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: ColorName.white,
+              alignment: Alignment.center,
+              child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    color: ColorName.logoOrangecolor,
+                    backgroundColor: ColorName.buttoncolor,
+                  )))
+          : Container(
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8.0, right: 8.0, top: 18.0),
+                child: Column(
+                  children: [
+                    Card(
+                      color: ColorName.white,
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            offset: Offset(2, 4),
-                            color: ColorName.gray3,
-                          ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Pending Application",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: ColorName.black,
-                                  fontWeight: FontWeight.w600)),
-                        ),
-                        Container(
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10.0),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Pending_Application()));
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: ColorName.buttoncolor,
-                              borderRadius: BorderRadius.circular(8.0),
+                              color: ColorName.white,
+                              borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 5,
@@ -179,56 +165,56 @@ class _Dashboard_ListState extends State<Dashboard_List>
                                   color: ColorName.gray3,
                                 ),
                               ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Text('000',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: ColorName.black,
-                                    fontWeight: FontWeight.w600)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Pending Application",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: ColorName.black,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: ColorName.buttoncolor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        offset: Offset(2, 4),
+                                        color: ColorName.gray3,
+                                      ),
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: Text(pendingCount,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: ColorName.black,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                color: ColorName.white,
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(10.0),
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: ColorName.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            offset: Offset(2, 4),
-                            color: ColorName.gray3,
-                          ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Reassign Application",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: ColorName.black,
-                                  fontWeight: FontWeight.w600)),
                         ),
-                        Container(
+                      ),
+                    ),
+                    Card(
+                      color: ColorName.white,
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10.0),
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: ColorName.buttoncolor,
-                              borderRadius: BorderRadius.circular(8.0),
+                              color: ColorName.white,
+                              borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 5,
@@ -236,56 +222,56 @@ class _Dashboard_ListState extends State<Dashboard_List>
                                   color: ColorName.gray3,
                                 ),
                               ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Text('000',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: ColorName.black,
-                                    fontWeight: FontWeight.w600)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Reassign Application",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: ColorName.black,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: ColorName.buttoncolor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        offset: Offset(2, 4),
+                                        color: ColorName.gray3,
+                                      ),
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: Text(reassignCount,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: ColorName.black,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                color: ColorName.white,
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(10.0),
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: ColorName.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            offset: Offset(2, 4),
-                            color: ColorName.gray3,
-                          ),
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Submitted",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: ColorName.black,
-                                  fontWeight: FontWeight.w600)),
                         ),
-                        Container(
+                      ),
+                    ),
+                    Card(
+                      color: ColorName.white,
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10.0),
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: ColorName.buttoncolor,
-                              borderRadius: BorderRadius.circular(8.0),
+                              color: ColorName.white,
+                              borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 5,
@@ -293,59 +279,84 @@ class _Dashboard_ListState extends State<Dashboard_List>
                                   color: ColorName.gray3,
                                 ),
                               ]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Text('000',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: ColorName.black,
-                                    fontWeight: FontWeight.w600)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Submitted",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: ColorName.black,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: ColorName.buttoncolor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        offset: Offset(2, 4),
+                                        color: ColorName.gray3,
+                                      ),
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: Text(submitCount,
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: ColorName.black,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
   Future<void> dashboardListCountApi() async {
-
     Map<String, Object> jsonparam = Map();
 
     setState(() {
       jsonparam = {
-
+        "email": email,
       };
     });
 
     print(jsonparam);
     ApiService apiService = new ApiService();
-    apiService.callDashboardCountApi(jsonparam,tokenId).then((value) => {
-      setState(() {
-        print("Pening List Responce : " + value.toString());
-        dashboardListCountRes = value;
-        if (dashboardListCountRes['status'] == "1") {
-          // peningAppList=dashboardListCountRes;
-          isLoader = true;
-        } else {
-          isLoader = true;
-          Fluttertoast.showToast(
-              msg: "No Data Found",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: ColorName.black,
-              textColor: ColorName.white,
-              fontSize: 16.0);
-        }
-      }),
-    });
+    apiService.callDashboardCountApi(jsonparam, tokenId).then((value) => {
+          setState(() {
+            print("Dashboard List Responce : " + value.toString());
+            dashboardListCountRes = value;
+            if (dashboardListCountRes['status'] == "success") {
+              pendingCount =
+                  dashboardListCountRes['List']['pendingCount'].toString();
+              reassignCount =
+                  dashboardListCountRes['List']['reassignCount'].toString();
+              submitCount =
+                  dashboardListCountRes['List']['submitCount'].toString();
+              isLoader = true;
+            } else {
+              isLoader = true;
+              Fluttertoast.showToast(
+                  msg: "No Data Found",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: ColorName.black,
+                  textColor: ColorName.white,
+                  fontSize: 16.0);
+            }
+          }),
+        });
   }
-
 }

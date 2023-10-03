@@ -64,7 +64,7 @@ class _DrawerScreenState extends State<DrawerScreen> with SingleTickerProviderSt
             topRight: Radius.circular(50), bottomRight: Radius.circular(50)),
         child: Drawer(
           width: MediaQuery.of(context).size.width / 1.5,
-          // shape: OutlineInputBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight: Radius.circular(50))),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.only(topRight: Radius.circular(50),bottomRight: Radius.circular(50))),
           child: Container(
             width: MediaQuery.of(context).size.width,
             color: ColorName.white,
